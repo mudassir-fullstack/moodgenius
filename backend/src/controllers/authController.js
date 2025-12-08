@@ -1,0 +1,76 @@
+import { PrismaClient } from '@prisma/client';
+import { hashPassword, comparePassword } from '../utils/bcrypt.js';
+import { generateToken } from '../utils/jwt.js';
+
+const prisma = new PrismaClient();
+
+// SIGNUP
+export const signup = async (req, res) => {
+  const { email, password, full_name } = req.body;
+
+  // Validation
+  if (!email || !password || !full_name) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+  if (!email.includes("@") || password.length < 6) {
+    return res.status(400).json({ error: "Invalid email or password too short" });
+  }
+
+  try {
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ error: "Email already exists" });
+    }
+
+    const hashedPassword = await hashPassword(password);
+
+    const user = await prisma.user.create({
+      data: {
+        email,
+        password: hashedPassword,
+        full_name,
+      },
+    });
+
+    const token = generateToken(user);
+
+    res.status(201).json({
+      message: "Signup successful",
+      token,
+      user: { id: user.id, email: user.email, full_name: user.full_name, role: user.role }
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+// LOGIN
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ error: "Email and password required" });
+  }
+
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user) {
+      return res.status(400).json({ error: "Invalid email or password" });
+    }
+
+    const isMatch = await comparePassword(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: "Invalid email or password" });
+    }
+
+    const token = generateToken(user);
+
+    res.json({
+      message: "Login successful",
+      token,
+      user: { id: user.id, email: user.email, full_name: user.full_name, role: user.role }
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+};

@@ -1,0 +1,158 @@
+/* src/styles/global.css - Mood Genius Professional Theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: white;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* Responsive Typography */
+h1 { font-size: 2.5rem; font-weight: 800; }
+h2 { font-size: 2.2rem; font-weight: 700; }
+h3 { font-size: 1.9rem; font-weight: 700; }
+h4 { font-size: 1.6rem; font-weight: 600; }
+h5 { font-size: 1.4rem; font-weight: 600; }
+h6 { font-size: 1.2rem; font-weight: 600; }
+
+p { font-size: 1.1rem; }
+/* Width only for large screens */
+.signup-card {
+  width: 40%;
+  max-width: 600px;
+}
+.password-toggle-icon{
+    position: absolute;
+    top: 62%;
+   left: 65%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #6c757d;
+}
+.password-toggle-icon-login{
+    position: absolute;
+    top: 56%;
+   left: 65%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #6c757d;
+}
+@media (min-width: 992px) {
+  .signup-card {
+    max-width: 600px !important;
+  }
+}
+
+/* Increase input padding + set text color */
+.form-control {
+  padding: 10px 12px !important;
+  color: #000 !important;
+}
+
+/* Change placeholder color */
+.form-control::placeholder {
+  color: #6c757d !important;
+  opacity: 1;
+}
+
+/* Larger submit button text */
+.btn-create {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Make input focus border black & remove blue glow */
+.form-control:focus {
+  border-color: #000 !important;      /* black border */
+  box-shadow: 0 0 0 0.25rem rgba(0,0,0,0.25) !important; /* soft black focus */
+}
+
+/* Optional: if you want NO shadow at all */
+.form-control:focus {
+  border-color: #000 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+
+@media(max-width: 768px){ 
+ .signup-card {
+    width: 100%;   
+}
+.password-toggle-icon{
+    position: absolute;
+    top: 71%;
+   left: 78%;
+   }   
+}
+
+@media (max-width: 425px) {
+  h1 { font-size: 3.5rem; }
+  h2 { font-size: 3rem; }
+  h3 { font-size: 2.5rem; }
+  h4 { font-size: 2rem; }
+  h5 { font-size: 1.7rem; }
+  h6 { font-size: 1.4rem; }
+  p { font-size: 1.15rem; }
+.signup-card {
+    width: 100%;
+ 
+}
+
+.password-toggle-icon{
+    position: absolute;
+    top: 71%;
+   left: 76%;
+   }
+.password-toggle-icon-login{
+    position: absolute;
+    top: 56%;
+   left: 76%;
+ }
+
+}
+
+@media (min-width: 1024px) {
+  h1 { font-size: 4.5rem; }
+  h2 { font-size: 3.8rem; }
+  h3 { font-size: 3rem; }
+  h4 { font-size: 2.4rem; }
+
+}
+
+/* Common Classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.scale-hover {
+  transition: transform 0.3s ease;
+}
+
+.scale-hover:hover {
+  transform: scale(1.05);
+}
+
